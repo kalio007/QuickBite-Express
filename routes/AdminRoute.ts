@@ -8,6 +8,6 @@ import {
 const router = express.Router();
 router.post("/", CreateVendor);
 router.get("/vendors", GetVendor);
-router.get("/vendor:id", GetVendorByID);
+router.get("/vendor/:id", GetVendorByID);
 
 export { router as adminRoute };
