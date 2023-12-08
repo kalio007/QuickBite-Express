@@ -6,7 +6,7 @@ import {
 } from "../controllers/adminController";
 
 const router = express.Router();
-router.post("/", CreateVendor);
+router.post("/vendor", CreateVendor);
 router.get("/vendors", GetVendor);
 router.get("/vendor/:id", GetVendorByID);
 
