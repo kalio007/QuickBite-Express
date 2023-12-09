@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 export const GenerateSalt = async () => {
-  return await bcrypt.getsalt();
+  return await bcrypt.genSalt();
 };
 
 export const GeneratePassword = async (password: string, salt: string) => {
