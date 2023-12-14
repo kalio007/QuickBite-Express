@@ -1,1 +1,1 @@
-export * from "./CommotAuth";
+export * from "./CommonAuth";
