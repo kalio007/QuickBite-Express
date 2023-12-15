@@ -4,7 +4,6 @@ import { FindVendor } from "./adminController";
 import { GenerateSignature, validatePassword } from "../utility";
 import { CreateFoodInput } from "../dto";
 import { Food } from "../models";
-import { Multer } from "multer";
 
 export const VendorLogin = async (
   req: Request,
@@ -61,7 +60,7 @@ export const UpdateVendorProfile = async (
     const existingVendor = await FindVendor(user._id);
     if (existingVendor) {
       existingVendor.name = name;
-      existingVendor.address;
+      existingVendor.address = address;
       existingVendor.phone = phone;
       existingVendor.foodType = foodType;
       const updatedProfile = await existingVendor.save();
@@ -69,12 +68,6 @@ export const UpdateVendorProfile = async (
     }
   }
 };
-
-export const UpdateVendorCoverImage = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {};
 export const UpdateVendorService = async (
   req: Request,
   res: Response,
@@ -133,4 +126,27 @@ export const GetFoods = async (
     }
   }
   return res.json({ message: "Foods not found!" });
+};
+export const UpdateVendorCoverImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = req.user;
+
+  if (user) {
+    const vendor = await FindVendor(user._id);
+
+    if (vendor !== null) {
+      const files = req.files as [Express.Multer.File];
+
+      const images = files.map((file: Express.Multer.File) => file.filename);
+
+      vendor.coverImages.push(...images);
+      const saveResult = await vendor.save();
+
+      return res.json(saveResult);
+    }
+  }
+  return res.json({ message: "Unable to Update vendor profile " });
 };
