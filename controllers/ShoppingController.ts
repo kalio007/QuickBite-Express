@@ -50,6 +50,7 @@ export const GetFoodsIn30Min = async (
     let foodResult: any = [];
     result.map((vendor) => {
       const foods = vendor.foods as [FoodDoc];
+      //we made it foods so we dont run direct ops on/from the db.
       foodResult.push(...foods.filter((food) => food.readyTime <= 30));
     });
     return res.status(200).json(foodResult);
@@ -74,6 +75,7 @@ export const SearchFoods = async (
     return res.status(200).json(foodResult);
   }
   return res.status(404).json({ msg: "data Not found!" });
+  //Chore: Add Cache and Elasticsearch
 };
 export const GetAvailableOffers = async (
   req: Request,
