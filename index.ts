@@ -1,5 +1,10 @@
 import express from "express";
-import { ShoppingRoute, adminRoute, vendorRoute } from "./routes";
+import {
+  ShoppingRoute,
+  adminRoute,
+  vendorRoute,
+  CustomerRoute,
+} from "./routes";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import { DB_URL } from "./config";
@@ -16,6 +21,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/admin", adminRoute);
 app.use("/vendor", vendorRoute);
 app.use("/shopping", ShoppingRoute);
+app.use("/customer", CustomerRoute);
 
 //connecting DB
 mongoose
@@ -25,7 +31,7 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.clear();
   console.log("listening");
 });
