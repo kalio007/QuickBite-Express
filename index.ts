@@ -11,7 +11,7 @@ import { DB_URL } from "./config";
 import path from "path";
 // require("dotenv").config();
 
-const app = express();
+export const app = express();
 
 //multer global setup
 app.use(bodyParser.json());
